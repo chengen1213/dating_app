@@ -5,7 +5,6 @@ import {
   HTTP_INTERCEPTORS
 } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { error } from 'protractor';
 import { throwError } from 'rxjs';
 
 @Injectable()
@@ -29,7 +28,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           if (serverError.errors && typeof serverError.errors === 'object') {
             for (const key in serverError.errors) {
               if (serverError.errors[key]) {
-                modalStateErrors += serverError.errors[key] + '\n';
+                const fieldErrors = serverError.errors[key];
+                for (const index in fieldErrors) {
+                  if (fieldErrors[index]) {
+                    modalStateErrors += fieldErrors[index] + '\n';
+                  }
+                }
               }
             }
           }
