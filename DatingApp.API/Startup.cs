@@ -48,6 +48,7 @@ namespace DatingApp.API
             services.AddDbContext<DataContext>(x =>
             {
                 x.UseLazyLoadingProxies();
+                // x.UseMySql(Environment.GetEnvironmentVariable("ConnectionString"));
                 x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
             });
 
@@ -104,8 +105,10 @@ namespace DatingApp.API
                         }
                     });
                 });
+                // app.UseHsts();
             }
 
+            // app.UseDeveloperExceptionPage();
             // app.UseHttpsRedirection();
 
             app.UseRouting();
